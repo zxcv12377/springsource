@@ -48,4 +48,5 @@ public class BoardRepositoryTest {
     public void deleteTest() {
         boardRepository.deleteById(5L);
     }
+
 }
