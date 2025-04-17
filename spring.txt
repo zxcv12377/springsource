@@ -152,3 +152,27 @@ href 경로 설정 시 현재경로(주소줄에 있는 경로)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq_gen")
      ex)create sequence student_seq start with 1 increment by 1
 
+    -----------------------------------------------------------------------------------------
+    날짜 어노테이션 
+
+    org.hibernate 제공
+    @CreationTimeStamp : 데이터를 삽입 시 자동으로 현재 시스템 날짜 시간 삽입
+    @UpdateTimeStamp : 데이터를 삽입 + 수정시 자동으로 현재 시스템 날짜 시간 삽입
+
+    org.springframework.date 제공
+    @CreatedDate
+    @LastModifiedDate
+
+    + 설정작업 필요
+    main이 있는 클래스에 @EnableJpaAuditing 부착
+    Entity 클래스에 @EntityListeners(value = AuditingEntityListener.class) 부착
+
+    -----------------------------------------------------------------------------------------
+
+    Repository + Entity
+
+    Repository 제공 메소드
+     1) save() : insert, update
+     2) findById(id) : select(where)
+     3) findAll() : select(*)
+     4) deleteById() / delete() : 삭제해라 애송이
