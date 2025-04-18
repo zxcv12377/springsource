@@ -18,7 +18,7 @@ import lombok.*;
 // 나머지 칼럼 nm(Not Null)
 
 @Getter
-@Setter
+// @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -40,4 +40,8 @@ public class Memo {
 
     @LastModifiedDate
     private LocalDateTime updateDate;
+
+    public void changeMemoText(String memoText) {
+        this.memoText = memoText;
+    }
 }
