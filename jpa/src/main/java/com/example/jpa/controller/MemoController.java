@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.example.jpa.dto.MemoDTO;
 import com.example.jpa.service.MemoService;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Log4j2
 @Controller

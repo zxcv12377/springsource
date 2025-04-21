@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.jpa.dto.MemoDTO;
-import com.example.jpa.entity.Memo;
 
 @SpringBootTest
 public class MemoServiceTest {
