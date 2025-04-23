@@ -185,3 +185,8 @@ href 경로 설정 시 현재경로(주소줄에 있는 경로)
      2) findById(id) : select(where)
      3) findAll() : select(*)
      4) deleteById() / delete() : 삭제해라 애송이
+
+
+     - modelmapper : dto -> entity, entity -> dto 를 자동으로 처리(완전자동은 아님)
+      1. RootConfig.java 작성
+      2. 

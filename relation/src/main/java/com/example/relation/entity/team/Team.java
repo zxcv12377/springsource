@@ -3,6 +3,7 @@ package com.example.relation.entity.team;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,9 +35,9 @@ public class Team {
     private Long id;
 
     private String teamName;
-
     // 양방향 연관관계
+    // @OneToMany : One 테이블만 select실행
     @Builder.Default
-    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER) // @OneToMany : One 테이블만 select실행
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     private List<TeamMember> members = new ArrayList<>();
 }

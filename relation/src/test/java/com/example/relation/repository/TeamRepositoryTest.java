@@ -10,7 +10,6 @@ import com.example.relation.repository.team.TeamMemberRepository;
 import com.example.relation.repository.team.TeamRepository;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 
 @SpringBootTest
 public class TeamRepositoryTest {
@@ -96,5 +95,23 @@ public class TeamRepositoryTest {
         // - FetchType.LAZY
         System.out.println(team);
         team.getMembers().forEach(member -> System.out.println(member));
+    }
+
+    // cascade : 영속성 전이
+    @Test
+    public void insert3Test() {
+        Team team = Team.builder().teamName("team3").build();
+
+        TeamMember teamMember = TeamMember.builder()
+                .userName("홍길동")
+                .team(team).build();
+        team.getMembers().add(teamMember);
+        teamRepository.save(team);
+    }
+
+    @Test
+    public void deleteTest2() {
+
+        teamRepository.deleteById(3L);
     }
 }
