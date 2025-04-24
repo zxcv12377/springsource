@@ -34,4 +34,25 @@ public class ToDoService {
 
         return dtoList;
     }
+
+    public Long changeCompleted(ToDoDTO dto) {
+        ToDo todo = toDoRepository.findById(dto.getId()).get();
+        todo.setCompleted(dto.isCompleted());
+        return toDoRepository.save(todo).getId();
+    }
+
+    public ToDoDTO read(Long id) {
+        ToDo todo = toDoRepository.findById(id).get();
+        return modelMapper.map(todo, ToDoDTO.class);
+    }
+
+    public void delete(Long id) {
+        toDoRepository.deleteById(id);
+    }
+
+    public Long create(ToDoDTO dto) {
+        ToDo todo = modelMapper.map(dto, ToDo.class);
+        return toDoRepository.save(todo).getId();
+    }
+
 }
