@@ -48,4 +48,11 @@ public class MemoRepositoryTest {
     public void deleteTest() {
         memoRepository.deleteById(10L);
     }
+
+    @Test
+    public void queryMethodTest() {
+        // System.out.println(memoRepository.findByMnoLessThan(5L));
+        // System.out.println(memoRepository.findByMnoLessThanOrderByMnoDesc(10L));
+        // memoRepository.findByMemoTextContaining("memoText");
+    }
 }

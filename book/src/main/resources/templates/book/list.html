@@ -6,6 +6,32 @@
   </th:block>
   <div layout:fragment="content">
     <!-- 본문내용 -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Code</th>
+          <th scope="col">제목</th>
+          <th scope="col">저자</th>
+          <th scope="col">가격</th>
+          <th scope="col">출판일</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each=" dto : ${books}">
+          <th scope="row">[[${dto.code}]]</th>
+          <td><a th:href="@{/book/read(code=${dto.code})}" th:text="${dto.title}"></a></td>
+          <td>[[${dto.author}]]</td>
+          <td>[[${dto.price}]]</td>
+          <td>[[${#temporals.format(dto.createdDate, 'yyyy-MM-dd')}]]</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <th:block layout:fragment="script"></th:block>
+  <th:block layout:fragment="script">
+    <script>
+      const code = "[[${code}]]";
+
+      if (code) alert("입력 성공");
+    </script>
+  </th:block>
 </html>

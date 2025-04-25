@@ -49,4 +49,22 @@ public class BoardRepositoryTest {
         boardRepository.deleteById(5L);
     }
 
+    @Test
+    public void queryMethodTest() {
+        // System.out.println(boardRepository.findByWriter("writer2"));
+        // System.out.println(boardRepository.findByTitle("title7"));
+        // System.out.println(boardRepository.findByWriterContaining("10"));
+        // System.out.println(boardRepository.findByWriterEndingWith("writer"));
+        // System.out.println(boardRepository.findByWriterStartingWith("writer"));
+        // System.out.println(boardRepository.findByWriterContainingOrContentContaining("6",
+        // "update"));
+        // System.out.println(boardRepository.findByWriterContainingAndContentContaining("6",
+        // "update"));
+        System.out.println(boardRepository.findByBnoGreaterThan(5L));
+        // System.out.println(boardRepository.findByBnoGreaterThanOrderByBnoDesc(5L));
+        // System.out.println(boardRepository.findByBnoBetween(2L, 5L));
+        // System.out.println(boardRepository.findByBnoGreaterThanAndLessThan(2L, 5L));
+
+    }
+
 }
