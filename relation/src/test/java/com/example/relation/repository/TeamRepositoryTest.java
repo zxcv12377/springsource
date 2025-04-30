@@ -1,5 +1,8 @@
 package com.example.relation.repository;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -113,5 +116,17 @@ public class TeamRepositoryTest {
     public void deleteTest2() {
 
         teamRepository.deleteById(3L);
+    }
+
+    @Test
+    public void queryTest() {
+        // Team team = Team.builder().id(2L).build();
+        // List<TeamMember> member = teamMemberRepository.findByTeam(team);
+        // System.out.println(member);
+
+        List<Object[]> list = teamMemberRepository.findByMemberEqualTeam(2L);
+        for (Object[] objects : list) {
+            System.out.println(Arrays.toString(objects));
+        }
     }
 }

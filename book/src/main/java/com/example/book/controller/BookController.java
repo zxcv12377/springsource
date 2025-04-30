@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.book.dto.BookDTO;
+import com.example.book.dto.PageRequestDTO;
+import com.example.book.dto.PageResultDTO;
 import com.example.book.service.BookService;
 
 import jakarta.validation.Valid;
@@ -31,32 +33,40 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/list")
-    public void getList(Model model) {
-        log.info("book list 요청");
-        List<BookDTO> list = bookService.readAll();
-        model.addAttribute("books", list);
+    public void getList(PageRequestDTO pageRequestDTO, Model model) {
+        log.info("book list 요청 {}", pageRequestDTO);
+        PageResultDTO<BookDTO> pageResultDTO = bookService.readAll(pageRequestDTO);
+        model.addAttribute("books", pageResultDTO);
 
     }
 
     @GetMapping({ "/read", "/modify" })
-    public void getRead(Long code, Model model) {
+    public void getRead(Long code, PageRequestDTO pageRequestDTO, Model model) {
         log.info("book get 요청 {}", code);
         BookDTO dto = bookService.read(code);
         model.addAttribute("dto", dto);
     }
 
     @PostMapping("/modify")
-    public String getModify(BookDTO dto, RedirectAttributes rttr) {
+    public String getModify(BookDTO dto, PageRequestDTO pageRequestDTO, RedirectAttributes rttr) {
         log.info("book modify 요청 {}", dto);
         bookService.modify(dto);
+        rttr.addAttribute("page", pageRequestDTO.getPage());
+        rttr.addAttribute("size", pageRequestDTO.getSize());
+        rttr.addAttribute("type", pageRequestDTO.getType());
+        rttr.addAttribute("keyword", pageRequestDTO.getKeyword());
         rttr.addAttribute("code", dto.getCode());
         return "redirect:/book/read";
     }
 
     @PostMapping("/remove")
-    public String postRemove(Long code) {
+    public String postRemove(Long code, PageRequestDTO pageRequestDTO, RedirectAttributes rttr) {
         log.info("book remove 요청 {}", code);
         bookService.remove(code);
+        rttr.addAttribute("page", pageRequestDTO.getPage());
+        rttr.addAttribute("size", pageRequestDTO.getSize());
+        rttr.addAttribute("type", pageRequestDTO.getType());
+        rttr.addAttribute("keyword", pageRequestDTO.getKeyword());
         return "redirect:/book/list";
     }
 
@@ -68,7 +78,7 @@ public class BookController {
     // }
 
     @GetMapping("/create")
-    public void getCreate(@ModelAttribute("book") BookDTO dto) {
+    public void getCreate(@ModelAttribute("book") BookDTO dto, PageRequestDTO pageRequestDTO) {
         log.info("도서 작성 폼 요청");
     }
 

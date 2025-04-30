@@ -1,6 +1,8 @@
 package com.example.mart.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -43,6 +45,15 @@ public class MartRepositoryTest {
     private CategoryRepository categoryRepository;
     @Autowired
     private CategoryItemRepository categoryItemRepository;
+
+    @Test
+    public void qureydslTest() {
+        // List<Member> list = orderRepository.members();
+        // list.forEach(i -> System.out.println(i));
+
+        List<Item> list = orderRepository.items();
+        System.out.println(list);
+    }
 
     @Test
     public void testMemberInsert() {
@@ -287,5 +298,37 @@ public class MartRepositoryTest {
 
         Category category = categoryRepository.findById(10L).get();
         category.getCategoryItems().forEach(item -> System.out.println(item.getItem()));
+    }
+
+    @Test
+    public void joinTest() {
+        List<Object[]> list = orderRepository.joinTest();
+        for (Object[] objects : list) {
+            System.out.println(Arrays.toString(objects));
+            Order order = (Order) objects[0];
+            Member member = (Member) objects[1];
+            OrderItem orderItem = (OrderItem) objects[2];
+            System.out.println(order);
+            System.out.println(member);
+            System.out.println(orderItem);
+        }
+    }
+
+    @Test
+    public void subQueryTest() {
+        List<Object[]> list = orderRepository.subQueryTest();
+        for (Object[] objects : list) {
+            System.out.println(Arrays.toString(objects));
+            Order order = (Order) objects[0];
+            Member member = (Member) objects[1];
+            OrderItem orderItem = (OrderItem) objects[2];
+            Long orderCnt = (Long) objects[3];
+            Long orderSum = (Long) objects[4];
+            System.out.println(order);
+            System.out.println(member);
+            System.out.println(orderItem);
+            System.out.println(orderCnt);
+            System.out.println(orderSum);
+        }
     }
 }
