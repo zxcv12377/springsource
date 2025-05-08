@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layouts/layout}">
-  <th:block layout:fragment="css"></th:block>
-  <th:block layout:fragment="title">
-    <title>Board List</title>
-  </th:block>
   <div layout:fragment="content">
+    <h1>Board Read</h1>
+
     <form>
       <div class="mb-3">
         <label for="bno" class="form-label">번호</label>
@@ -22,14 +20,52 @@
         <label for="name" class="form-label">작성자</label>
         <input type="text" class="form-control" id="name" name="name" th:value="${dto.name}" />
       </div>
-
-      <a class="btn btn-primary">수정</a>
-      <a class="btn btn-success">목록</a>
+      <a
+        class="btn btn-primary"
+        th:href="@{modify(bno=${dto.bno},page=${pageRequestDTO.page},size=${pageRequestDTO.size},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}"
+        >수정</a
+      >
+      <a
+        class="btn btn-success"
+        th:href="@{list(page=${pageRequestDTO.page},size=${pageRequestDTO.size},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}"
+        >목록</a
+      >
     </form>
-    <div class="roe mt-3">
-      <h5 class="my-5">댓글 개수 : [[${dto.replyCount}]]</h5>
-      <!-- 댓글 목록 -->
-      <div class="replyList boarder px-2">[[${dto.text}]]</div>
+    <div class="row mt-3">
+      <h5 class="my-3">댓글개수 : <span th:text="${dto.replyCount}"></span></h5>
+      <div class="replyList boarder px-2">
+        <!-- 댓글목록 -->
+        <!-- <div class="d-flex justify-content-between my-2 border-bottom reply-row" data-rno="1">
+          <div class="p-3">
+            <img
+              src="/img/default.png"
+              alt=""
+              class="rounded-circle mx-auto d-block"
+              style="width: 60px; height: 60px"
+            />
+          </div>
+
+          <div class="flex-grow-1 align-self-center">
+            <div>댓글작성자</div>
+            <div><span class="fs-5">댓글 내용</span></div>
+            <div class="text-muted"><span class="small">2024-01-13</span></div>
+          </div>
+          <div class="d-flex flex-column align-self-center">
+            <div class="mb-2">
+              <button class="btn btn-outline-danger btn-sm">삭제</button>
+            </div>
+            <div>
+              <button class="btn btn-outline-success btn-sm">수정</button>
+            </div>
+          </div>
+        </div> -->
+      </div>
     </div>
   </div>
+  <th:block layout:fragment="script">
+    <script>
+      const bno = "[[${dto.bno}]]";
+    </script>
+    <script th:src="@{/js/read.js}"></script>
+  </th:block>
 </html>

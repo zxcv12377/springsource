@@ -19,28 +19,39 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Getter
 @Builder
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = { "member", "replies" })
-
 @Table(name = "BOARDTBL")
 @Entity
 public class Board extends BaseEntity {
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long bno;
+
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private String content;
+
     @JoinColumn(name = "member_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    // 게시글에 달려있는 댓글 정보 조회
     @Builder.Default
     @OneToMany(mappedBy = "board")
     private List<Reply> replies = new ArrayList<>();
 
+    public void changeContent(String content) {
+        this.content = content;
+    }
+
+    public void changeTitle(String title) {
+        this.title = title;
+    }
 }
