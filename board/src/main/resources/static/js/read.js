@@ -14,11 +14,18 @@ const formatDate = (str) => {
   );
 };
 
+const replyListElement = document.querySelector(".replyList");
+const replyForm = document.querySelector("#replyForm");
+
 const replyList = () => {
   axios.get(`/replies/board/${bno}`).then((res) => {
     console.log(res.data);
+    // 댓글 수정
 
     const data = res.data;
+    console.log("댓글 수 : ", data.length);
+    // document.querySelector("#replyCount").innerHTML = data.length;
+    replyListElement.previousElementSibling.querySelector("span").innerHTML = data.length;
     let result = "";
     data.forEach((reply) => {
       result += `<div class="d-flex justify-content-between my-2 border-bottom reply-row" data-rno=${reply.rno}>`;
@@ -33,9 +40,10 @@ const replyList = () => {
       result += `</div>`;
     });
 
-    document.querySelector(".replyList").innerHTML = result;
+    replyListElement.innerHTML = result;
   });
 };
+
 // 댓글 삭제
 // 삭제 버튼 클릭 시  data-rno 가져오기
 document.querySelector(".replyList").addEventListener("click", (e) => {
@@ -50,9 +58,55 @@ document.querySelector(".replyList").addEventListener("click", (e) => {
       replyList();
     });
   } else if (btn.classList.contains("btn-outline-success")) {
-    axios.put(`/replies/${rno}`).then((res) => {
-      console.log(res.data);
+    axios.get(`/replies/${rno}`).then((res) => {
+      // console.log(res.data);
+      const data = res.data;
+
+      replyForm.rno.value = data.rno;
+      replyForm.replyer.value = data.replyer;
+      replyForm.text.value = data.text;
     });
+  }
+});
+
+replyForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const rno = form.rno.value;
+  if (form.rno.value) {
+    // 수정
+    axios
+      .put(`/replies/${rno}`, form, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        alert("댓글 수정 완료");
+        // 기존 내용 삭제
+        replyForm.rno.value = "";
+        replyForm.replyer.value = "";
+        replyForm.text.value = "";
+
+        replyList();
+      });
+  } else {
+    // 생성
+    axios
+      .post("/replies/new", form, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        alert(res.data + " 댓글 등록");
+        replyForm.rno.value = "";
+        replyForm.replyer.value = "";
+        replyForm.text.value = "";
+        replyList();
+      });
   }
 });
 replyList();
