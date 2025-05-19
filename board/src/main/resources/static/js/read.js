@@ -34,8 +34,10 @@ const replyList = () => {
       result += `<div>${reply.replyer}</div><div><span class="fs-5">${reply.text}</span></div>`;
       result += `<div class="text-muted"><span class="small">${formatDate(reply.createdDate)}</span></div></div>`;
       result += `<div class="d-flex flex-column align-self-center">`;
-      result += `<div class="mb-2"><button class="btn btn-outline-danger btn-sm">삭제</button></div>`;
-      result += `<div><button class="btn btn-outline-success btn-sm">수정</button></div>`;
+      if (loginUser == reply.replyEmail) {
+        result += `<div class="mb-2"><button class="btn btn-outline-danger btn-sm">삭제</button></div>`;
+        result += `<div><button class="btn btn-outline-success btn-sm">수정</button></div>`;
+      }
       result += `</div>`;
       result += `</div>`;
     });

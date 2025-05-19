@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.movie.entity.Member;
 import com.example.movie.entity.MemberRole;
@@ -34,6 +35,23 @@ public class MovieRespositoryTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Test
+    public void testReviewRead() {
+        System.out.println(reviewRepository.findByMovie(Movie.builder().mno(2L).build()));
+
+    }
+
+    // @Transactional
+    @Test
+    public void testReviewRead2() {
+        List<Review> list = reviewRepository.findByMovie(Movie.builder().mno(2L).build());
+        for (Review review : list) {
+            System.out.println(review);
+            System.out.println(review.getMember().getEmail());
+        }
+
+    }
 
     // 영화 삽입
     @Test
