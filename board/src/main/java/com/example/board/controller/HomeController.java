@@ -19,6 +19,7 @@ public class HomeController {
         return "redirect:/board/list";
     }
 
+    // 개발자 확인용
     @ResponseBody
     @GetMapping("/auth")
     public Authentication getaAuthentication() {

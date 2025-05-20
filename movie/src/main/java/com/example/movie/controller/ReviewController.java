@@ -3,6 +3,7 @@ package com.example.movie.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class ReviewController {
     private final ReviewService reviewService;
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{mno}")
     public Long postReview(@RequestBody ReviewDTO dto) {
         log.info("리뷰 등록 요청 {}", dto);
@@ -44,6 +46,7 @@ public class ReviewController {
         return reviewService.getReview(rno);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{mno}/{rno}")
     public ReviewDTO putReview(@PathVariable Long rno, @RequestBody ReviewDTO dto) {
         log.info("review 수정 {} {}", rno, dto);
@@ -51,6 +54,7 @@ public class ReviewController {
         return update;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{mno}/{rno}")
     public Long remove(@PathVariable Long rno) {
         log.info("review 제거 {}", rno);

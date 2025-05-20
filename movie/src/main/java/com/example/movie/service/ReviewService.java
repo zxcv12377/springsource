@@ -9,8 +9,6 @@ import com.example.movie.dto.ReviewDTO;
 import com.example.movie.entity.Member;
 import com.example.movie.entity.Movie;
 import com.example.movie.entity.Review;
-import com.example.movie.repository.MemberRepository;
-import com.example.movie.repository.MovieRepository;
 import com.example.movie.repository.ReviewRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,6 @@ import lombok.extern.log4j.Log4j2;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final MovieRepository movieRepository;
 
     public Long createReview(ReviewDTO dto) {
         Review review = dtoToEntity(dto);

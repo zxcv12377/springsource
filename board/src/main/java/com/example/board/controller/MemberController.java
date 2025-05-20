@@ -1,5 +1,8 @@
 package com.example.board.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import lombok.RequiredArgsConstructor;
@@ -7,6 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Log4j2
 @Controller
@@ -34,6 +38,15 @@ public class MemberController {
     @PostMapping("/register")
     public void postRegister() {
 
+    }
+
+    // 개발자 확인용
+    @ResponseBody
+    @GetMapping("/auth")
+    public Authentication getaAuthentication() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        return authentication;
     }
 
 }

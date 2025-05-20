@@ -35,18 +35,18 @@ public class SecurityConfig {
                                 .requestMatchers("/movie/list", "/movie/read").permitAll()
                                 .requestMatchers("/reviews/**", "/upload/display/**").permitAll()
                                 .requestMatchers("/member/register").permitAll()
-                                .anyRequest().authenticated());
+                                .anyRequest().permitAll());
                 http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
 
                 // http.csrf(csrf -> csrf.disable());
 
                 http.formLogin(login -> login.loginPage("/member/login")
-                                .defaultSuccessUrl("/movie/list")// successHandler(successHandler())
+                                .defaultSuccessUrl("/", true)// successHandler(successHandler())
                                 .permitAll());
 
                 http.logout(logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                                .logoutSuccessUrl("/movie/list"));
+                                .logoutSuccessUrl("/"));
 
                 // http.rememberMe(remember -> remember.rememberMeServices(rememberMeServices));
 
