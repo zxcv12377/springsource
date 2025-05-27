@@ -42,6 +42,12 @@ public class MovieRespositoryTest {
 
     }
 
+    @Test
+    public void changeADMIN() {
+        Member member = memberRepository.findById(22L).get();
+        member.changeMemberRole(MemberRole.ADMIN);
+    }
+
     // @Transactional
     @Test
     public void testReviewRead2() {

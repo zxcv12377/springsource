@@ -65,6 +65,7 @@ public class MovieImageReviewRepositoryImpl extends QuerydslRepositorySupport im
                         condition.or(movie.title.contains(keyword));
                 }
                 builder.and(condition);
+
                 tuple.where(builder);
 
                 // Sort 생성
